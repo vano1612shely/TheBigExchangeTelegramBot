@@ -10,6 +10,10 @@ import { LanguageCommand } from "./commands/language.command";
 import { ContactsCommand } from "./commands/contacts.command";
 import { ExchangeCommand } from "./commands/exchange.command";
 import { exchangeScene } from "./scenes/exchange.scene";
+import { cardScene } from "./scenes/card.scene";
+import { statusScene } from "./scenes/status.scene";
+import { StatusCommand } from "./commands/status.command";
+import { HistoryCommand } from "./commands/exchangeHistory.command";
 class Bot {
   bot: Telegraf<IBotContext>;
   constructor(
@@ -40,8 +44,14 @@ const commands: Array<new (bot: Telegraf<IBotContext>) => Command> = [
   LanguageCommand,
   ContactsCommand,
   ExchangeCommand,
+  StatusCommand,
+  HistoryCommand,
 ];
-const stage = new Scenes.Stage<IBotContext>([exchangeScene]);
+const stage = new Scenes.Stage<IBotContext>([
+  exchangeScene,
+  cardScene,
+  statusScene,
+]);
 
 const bot = new Bot(new ConfigService(), store, commands, stage);
 bot.init();

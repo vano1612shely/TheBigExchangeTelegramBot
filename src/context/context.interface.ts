@@ -1,27 +1,16 @@
 import { Context, Scenes } from "telegraf";
 import { ICityByCountry } from "../services/city/city-service.interface";
 import { ICurrency } from "../services/currency/currency-service.interface";
+import { ITelegramSendMessageRequest } from "../services/telegram/telegram-service.interface";
 export type AllowedLanguage = "ua" | "en" | "ru";
-export type ExchangePropType = {
-  type: string;
-  transactionType?: string;
-  transactionFrom?: string;
-  transactionTo?: string;
-  city?: string;
-  getCurrency: ICurrency | null;
-  giveCurrency: ICurrency | null;
-  getSum: number;
-  giveSum: number;
-  exchange: number;
-  walletType?: string;
-  wallet?: string;
-};
 export interface SessionData extends Scenes.SceneSession {
   language: AllowedLanguage;
-  exchangeProp: ExchangePropType;
+  exchangeProp: ITelegramSendMessageRequest;
   exchangeState: {
-    cities: ICityByCountry;
-    countryIndex: number;
+    cities?: ICityByCountry;
+    country?: string;
+    type?: string;
+    currencyList?: ICurrency[];
   };
 }
 

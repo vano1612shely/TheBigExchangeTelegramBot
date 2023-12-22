@@ -4,14 +4,31 @@ import { IBotContext } from "../context/context.interface";
 import { phrases } from "../vocabulary";
 import { ICity } from "../services/city/city-service.interface";
 
-export async function SelectCity(ctx: IBotContext) {
-  if (typeof ctx.session.exchangeState.countryIndex === "undefined") {
-    ctx.session.exchangeState.countryIndex = 0;
+export async function SelectCountry(ctx: IBotContext) {
+  const country = ctx.session.exchangeState.cities;
+  const lang = ctx.session.language;
+  const chunks = []; // Split cities into chunks for display
+  const chunkSize = 2; // Number of cities per row
+  for (let i = 0; i < Object.keys(country).length; i += chunkSize) {
+    chunks.push(Object.keys(country).slice(i, i + chunkSize));
   }
-  const countryIndex = ctx.session.exchangeState.countryIndex;
-  const country =
-    ctx.state.selectedCountry ||
-    Object.keys(ctx.session.exchangeState.cities)[countryIndex]; // Default to the first country
+
+  const buttons = chunks.map((chunk) =>
+    chunk.map((country: string) =>
+      Markup.button.callback(country, `selectCountry:${country}`),
+    ),
+  );
+  ctx.reply(
+    `${phrases[lang].selectCountry}`,
+    Markup.inlineKeyboard([
+      ...buttons,
+      [Markup.button.callback(`${phrases[lang].menu}`, "back_to_menu")],
+    ]),
+  );
+}
+
+export async function SelectCity(ctx: IBotContext) {
+  const country = ctx.session.exchangeState.country; // Default to the first country
   const cities = ctx.session.exchangeState.cities[country];
   const lang = ctx.session.language;
   const chunks = []; // Split cities into chunks for display
@@ -22,19 +39,13 @@ export async function SelectCity(ctx: IBotContext) {
 
   const buttons = chunks.map((chunk) =>
     chunk.map((city: ICity) =>
-      Markup.button.callback(city.city_name, `selectCity:${city.id}`),
+      Markup.button.callback(city.city_name, `selectCity:${city.city_name}`),
     ),
   );
-
-  const navigationButtons = [
-    Markup.button.callback("⬅️ Back", "prevCountry"),
-    Markup.button.callback("➡️ Forward", "nextCountry"),
-  ];
   ctx.reply(
-    `Select city \nCountry: ${country}`,
+    `${phrases[lang].selectCity}\n${phrases[lang].country} ${country}`,
     Markup.inlineKeyboard([
       ...buttons,
-      navigationButtons,
       [Markup.button.callback(`${phrases[lang].menu}`, "back_to_menu")],
     ]),
   );

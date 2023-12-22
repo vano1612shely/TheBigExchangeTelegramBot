@@ -33,5 +33,28 @@ export class ContactsCommand extends Command {
           ]),
         );
     });
+    this.bot.command("contacts", async (ctx) => {
+      const lang = ctx.session.language;
+      const data = await infoService.getAllData();
+      if (data)
+        ctx.reply(
+          `${phrases[lang].ourContacts}:\n\n${phrases[lang].phone}: ${data.phone}`,
+          Markup.inlineKeyboard([
+            [
+              Markup.button.url(
+                `${phrases[lang].telegram}`,
+                `https://t.me/${data.telegram}`,
+              ),
+            ],
+            [
+              Markup.button.url(
+                `${phrases[lang].site}`,
+                `http://thebigexchange.net/`,
+              ),
+            ],
+            [Markup.button.callback(`${phrases[lang].menu}`, `back_to_menu`)],
+          ]),
+        );
+    });
   }
 }
