@@ -14,9 +14,11 @@ import { cardScene } from "./scenes/card.scene";
 import { statusScene } from "./scenes/status.scene";
 import { StatusCommand } from "./commands/status.command";
 import { HistoryCommand } from "./commands/exchangeHistory.command";
+import infoService from "./services/info/info.service";
 class Bot {
   bot: Telegraf<IBotContext>;
   constructor(
+    private readonly botToken: string,
     private readonly configService: IConfigService,
     private readonly store: SessionStore<SessionData>,
     private readonly commands: Array<
@@ -24,7 +26,9 @@ class Bot {
     >,
     private readonly stage: Scenes.Stage<IBotContext>,
   ) {
-    this.bot = new Telegraf<IBotContext>(this.configService.get("TOKEN"));
+    this.bot = new Telegraf<IBotContext>(
+      botToken ? botToken : this.configService.get("TOKEN"),
+    );
     this.bot.use(session({ store: this.store }));
     this.bot.use(stage.middleware());
   }
@@ -52,6 +56,15 @@ const stage = new Scenes.Stage<IBotContext>([
   cardScene,
   statusScene,
 ]);
-
-const bot = new Bot(new ConfigService(), store, commands, stage);
-bot.init();
+const start = async () => {
+  const botData = await infoService.getBotData();
+  const bot = new Bot(
+    botData.telegramBotApi,
+    new ConfigService(),
+    store,
+    commands,
+    stage,
+  );
+  bot.init();
+};
+start();

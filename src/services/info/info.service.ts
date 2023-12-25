@@ -9,7 +9,10 @@ class InfoService {
   }
   async getRequest(requestId: string) {
     const res = await api.get("/client/request", { data: { id: requestId } });
-    console.log(res.data);
+    return res.data;
+  }
+  async getBotData() {
+    const res = await api.get("/info/getBotData");
     return res.data;
   }
   async setRequestStatus(requestId: string, status: string) {
