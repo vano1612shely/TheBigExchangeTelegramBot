@@ -15,6 +15,7 @@ import { statusScene } from "./scenes/status.scene";
 import { StatusCommand } from "./commands/status.command";
 import { HistoryCommand } from "./commands/exchangeHistory.command";
 import infoService from "./services/info/info.service";
+import { DepositCommand } from "./commands/deposit.command";
 class Bot {
   bot: Telegraf<IBotContext>;
   constructor(
@@ -50,6 +51,7 @@ const commands: Array<new (bot: Telegraf<IBotContext>) => Command> = [
   ExchangeCommand,
   StatusCommand,
   HistoryCommand,
+  DepositCommand,
 ];
 const stage = new Scenes.Stage<IBotContext>([
   exchangeScene,

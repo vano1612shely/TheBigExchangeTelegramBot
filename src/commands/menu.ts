@@ -24,6 +24,13 @@ export function Menu(ctx: IBotContext, deleteMessage: boolean = true) {
       [Markup.button.callback(`${phrases[lang].history}`, "history")],
       [Markup.button.callback(`${phrases[lang].contacts}`, "contacts")],
       [Markup.button.callback(`${phrases[lang].changeLanguage}`, "language")],
+      [Markup.button.callback(`${phrases[lang].deposit}`, "deposit")],
+      [
+        Markup.button.url(
+          `${phrases[lang].forBusiness}`,
+          "https://t.me/Thebig_business",
+        ),
+      ],
     ]),
   );
 }

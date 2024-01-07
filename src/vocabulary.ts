@@ -50,6 +50,10 @@ export const phrases = {
     enterCardNumber: "Enter your card number:",
     enterCryptoWallet: "Enter your crypto wallet:",
     wallet: "Wallet",
+    forBusiness: "💼 For business",
+    deposit: "💵 Deposit",
+    goldDeposit: "Deposit in gold",
+    dollarDeposit: "Deposit in dollars",
   },
   ua: {
     welcome: "Ласкаво просимо",
@@ -101,6 +105,10 @@ export const phrases = {
     enterCardNumber: "Введіть номер вашої картки:",
     enterCryptoWallet: "Введіть свій крипто гаманець:",
     wallet: "Гаманець",
+    forBusiness: "💼 Для бізнесу",
+    deposit: "💵 Депозит",
+    goldDeposit: "Депозит в золоті",
+    dollarDeposit: "Депозит в долларах",
   },
   ru: {
     welcome: "Добро пожаловать",
@@ -152,5 +160,9 @@ export const phrases = {
     enterCardNumber: "Введите номер вашей карты:",
     enterCryptoWallet: "Введите свой криптокошелек:",
     wallet: "Кошелек",
+    forBusiness: "💼 Для бизнеса",
+    deposit: "💵 Депозит",
+    goldDeposit: "Депозит в золоте",
+    dollarDeposit: "Депозит в долларах",
   },
 };
