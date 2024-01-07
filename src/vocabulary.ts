@@ -54,6 +54,7 @@ export const phrases = {
     deposit: "💵 Deposit",
     goldDeposit: "Deposit in gold",
     dollarDeposit: "Deposit in dollars",
+    moreInfo: "More info",
   },
   ua: {
     welcome: "Ласкаво просимо",
@@ -109,6 +110,7 @@ export const phrases = {
     deposit: "💵 Депозит",
     goldDeposit: "Депозит в золоті",
     dollarDeposit: "Депозит в долларах",
+    moreInfo: "Більше інформації",
   },
   ru: {
     welcome: "Добро пожаловать",
@@ -164,5 +166,6 @@ export const phrases = {
     deposit: "💵 Депозит",
     goldDeposit: "Депозит в золоте",
     dollarDeposit: "Депозит в долларах",
+    moreInfo: "Больше информации",
   },
 };

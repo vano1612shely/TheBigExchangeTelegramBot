@@ -39,8 +39,8 @@ export class DepositCommand extends Command {
       }
       ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
       const lang = ctx.session.language;
-      ctx.reply(
-        ``,
+      ctx.sendMessage(
+        phrases[lang].moreInfo + ":",
         Markup.inlineKeyboard([
           [
             Markup.button.url(
