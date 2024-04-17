@@ -60,6 +60,7 @@ const stage = new Scenes.Stage<IBotContext>([
 ]);
 const start = async () => {
   const botData = await infoService.getBotData();
+  console.log(botData);
   const bot = new Bot(
     botData.telegramBotApi,
     new ConfigService(),
