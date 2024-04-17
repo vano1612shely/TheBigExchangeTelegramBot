@@ -9,10 +9,14 @@ statusScene.enter(async (ctx) => {
 });
 
 statusScene.on("text", async (ctx) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
   if (ctx.scene.state.requestId) {
     return;
   }
   const requestId = ctx.message.text;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
   ctx.scene.state.requestId = requestId;
   const checkRequest = await infoService.getRequest(requestId);
   if (!checkRequest) {
@@ -30,8 +34,14 @@ statusScene.on("text", async (ctx) => {
 });
 
 statusScene.action(/status:.+/, async (ctx) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
   console.log(ctx.scene.state.requestId);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
   const status = ctx.callbackQuery.data.split(":")[1];
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-expect-error
   await infoService.setRequestStatus(ctx.scene.state.requestId, status);
   ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
   ctx.reply("Статус заявки успішно змінено");

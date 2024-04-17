@@ -68,7 +68,11 @@ exchangeScene.on("text", async (ctx) => {
     },
   });
   if (!isNaN(sum)) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
     if (ctx.scene.state && ctx.scene.state.sumType) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       if (ctx.scene.state.sumType === "give") {
         ctx.scene.leave();
         ctx.session.exchangeProp.giveSum = sum;

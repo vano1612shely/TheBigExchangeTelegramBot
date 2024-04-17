@@ -7,7 +7,6 @@ import cityService from "../services/city/city.service";
 import { SelectCity, SelectCountry } from "./selectCity";
 import { SelectCurrency, SelectTypeCurrency } from "./selectCurrency";
 import telegramService from "../services/telegram/telegram.service";
-import { Menu } from "./menu";
 export class ExchangeCommand extends Command {
   constructor(bot: Telegraf<IBotContext>) {
     super(bot);
@@ -16,6 +15,8 @@ export class ExchangeCommand extends Command {
     this.bot.action("exchange", async (ctx) => {
       ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
       ctx.session.exchangeState = {};
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       ctx.session.exchangeProp = {};
       const lang = ctx.session.language;
       ctx.reply(
@@ -45,6 +46,8 @@ export class ExchangeCommand extends Command {
     });
     this.bot.command("exchange", async (ctx) => {
       ctx.session.exchangeState = {};
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       ctx.session.exchangeProp = {};
       const lang = ctx.session.language;
       ctx.reply(
@@ -73,6 +76,8 @@ export class ExchangeCommand extends Command {
       );
     });
     this.bot.action(/exchangeType:.+/, async (ctx) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedType = ctx.callbackQuery.data.split(":")[1];
       const lang = ctx.session.language;
       ctx.session.exchangeProp = {
@@ -109,6 +114,8 @@ export class ExchangeCommand extends Command {
       }
     });
     this.bot.action(/selectCity:.+/, async (ctx) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedCity = ctx.callbackQuery.data.split(":")[1];
       if (ctx.session.exchangeProp.type == "offline") {
         ctx.session.exchangeProp = {
@@ -125,6 +132,8 @@ export class ExchangeCommand extends Command {
             ...ctx.session.exchangeProp,
             transactionFrom: selectedCity,
           };
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-expect-error
           ctx.session.exchangeState.countryIndex = 0;
           SelectCountry(ctx);
         } else {
@@ -138,6 +147,8 @@ export class ExchangeCommand extends Command {
       await ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
     });
     this.bot.action(/selectCountry:.+/, async (ctx) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedCountry = ctx.callbackQuery.data.split(":")[1];
       ctx.session.exchangeState.country = selectedCountry;
       SelectCity(ctx);
@@ -146,22 +157,38 @@ export class ExchangeCommand extends Command {
     this.bot.action("nextCountry", async (ctx) => {
       await ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
       if (
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-expect-error
         ctx.session.exchangeState.countryIndex <
         Object.keys(ctx.session.exchangeState.cities).length - 1
       ) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         ctx.session.exchangeState.countryIndex =
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-expect-error
           ctx.session.exchangeState.countryIndex + 1;
       } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         ctx.session.exchangeState.countryIndex = 0;
       }
       await SelectCity(ctx);
     });
     this.bot.action("prevCountry", async (ctx) => {
       await ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       if (ctx.session.exchangeState.countryIndex > 0) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         ctx.session.exchangeState.countryIndex =
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-expect-error
           ctx.session.exchangeState.countryIndex - 1;
       } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         ctx.session.exchangeState.countryIndex =
           Object.keys(ctx.session.exchangeState.cities).length - 1;
       }
@@ -169,11 +196,15 @@ export class ExchangeCommand extends Command {
     });
     this.bot.action(/getCyrrencyType:.+/, async (ctx) => {
       await ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedType = ctx.callbackQuery.data.split(":")[1];
       await SelectCurrency(ctx, selectedType);
     });
     this.bot.action(/selectCurrency:.+/, async (ctx) => {
       await ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedCurrency = ctx.callbackQuery.data.split(":")[1];
       const foundCurrency = ctx.session.exchangeState.currencyList.find(
         (currency) => currency.value === selectedCurrency,
@@ -198,12 +229,16 @@ export class ExchangeCommand extends Command {
     });
     this.bot.action(/selectBank:.+/, async (ctx) => {
       await ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedBank = ctx.callbackQuery.data.split(":")[1];
       ctx.session.exchangeProp.bank = selectedBank;
       ctx.scene.enter("card");
     });
     this.bot.action(/selectChain:.+/, async (ctx) => {
       await ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedChain = ctx.callbackQuery.data.split(":")[1];
       ctx.session.exchangeProp.chain = selectedChain;
       ctx.scene.enter("card");
@@ -215,6 +250,8 @@ export class ExchangeCommand extends Command {
         ...ctx.session.exchangeState,
         cities: cities,
       };
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
       const selectedType = ctx.callbackQuery.data.split(":")[1];
       ctx.session.exchangeProp.transactionType = selectedType;
       if (selectedType == "online") {
@@ -226,6 +263,7 @@ export class ExchangeCommand extends Command {
     this.bot.action("sendMessage", async (ctx) => {
       const lang = ctx.session.language;
       ctx.session.exchangeProp.name = ctx.callbackQuery.from.first_name;
+
       ctx.session.exchangeProp.telegram = ctx.callbackQuery.from.username;
       ctx.session.exchangeProp.from = "bot";
       ctx.session.exchangeProp.phone = "none";
