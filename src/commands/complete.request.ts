@@ -12,19 +12,6 @@ export default async function complete(ctx: IBotContext) {
       ? phrases[lang].city + ": " + ctx.session.exchangeProp.city + "\n\n"
       : ""
   }`;
-  message += `${
-    ctx.session.exchangeProp.transactionType &&
-    ctx.session.exchangeProp.transactionType == "offline"
-      ? phrases[lang].from +
-        ": <b>" +
-        ctx.session.exchangeProp.transactionFrom +
-        "</b>\n" +
-        phrases[lang].to +
-        ": <b>" +
-        ctx.session.exchangeProp.transactionTo +
-        "</b>\n\n"
-      : ""
-  }`;
   message += `${phrases[lang].give}: <b>${ctx.session.exchangeProp.giveCurrency?.title}(${ctx.session.exchangeProp.giveSum})</b>\n`;
   message += `${phrases[lang].receive}: <b>${ctx.session.exchangeProp.getCurrency?.title}(${ctx.session.exchangeProp.getSum})</b>\n`;
   message += `${phrases[lang].approximateExchangeRate}: <b>${ctx.session.exchangeProp.exchange}</b>\n\n`;
@@ -36,6 +23,6 @@ export default async function complete(ctx: IBotContext) {
     Markup.inlineKeyboard([
       [Markup.button.callback(`${phrases[lang].submit}`, "sendMessage")],
       [Markup.button.callback(`${phrases[lang].menu}`, "back_to_menu")],
-    ]),
+    ])
   );
 }

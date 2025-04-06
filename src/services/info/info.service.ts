@@ -8,14 +8,14 @@ class InfoService {
     } else return null;
   }
   async getRequest(requestId: string) {
-    const res = await api.get("/client/request", { data: { id: requestId } });
+    const res = await api.get(`/client/request/${requestId}`);
     return res.data;
   }
   async getBotData() {
     const res = await api.get("/info/getBotData");
     return res.data;
   }
-  async setRequestStatus(requestId: string, status: string) {
+  async setRequestStatus(requestId: string, status: number) {
     const res = await api.post("/client/setStatus", {
       requestId,
       status,

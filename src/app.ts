@@ -25,10 +25,10 @@ class Bot {
     private readonly commands: Array<
       new (bot: Telegraf<IBotContext>) => Command
     >,
-    private readonly stage: Scenes.Stage<IBotContext>,
+    private readonly stage: Scenes.Stage<IBotContext>
   ) {
     this.bot = new Telegraf<IBotContext>(
-      botToken ? botToken : this.configService.get("TOKEN"),
+      botToken ? botToken : this.configService.get("TOKEN")
     );
     this.bot.use(session({ store: this.store }));
     this.bot.use(stage.middleware());
@@ -60,13 +60,12 @@ const stage = new Scenes.Stage<IBotContext>([
 ]);
 const start = async () => {
   const botData = await infoService.getBotData();
-  console.log(botData);
   const bot = new Bot(
     botData.telegramBotApi,
     new ConfigService(),
     store,
     commands,
-    stage,
+    stage
   );
   bot.init();
 };

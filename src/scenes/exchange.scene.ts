@@ -22,17 +22,17 @@ exchangeScene.enter(async (ctx) => {
       [
         Markup.button.callback(
           `${phrases[lang].wantGive} ${ctx.session.exchangeProp.giveCurrency?.title}`,
-          `setGiveSum`,
+          `setGiveSum`
         ),
       ],
       [
         Markup.button.callback(
           `${phrases[lang].wantGet} ${ctx.session.exchangeProp.getCurrency?.title}`,
-          `setGetSum`,
+          `setGetSum`
         ),
       ],
       [Markup.button.callback(`${phrases[lang].back}`, "back")],
-    ]),
+    ])
   );
 });
 exchangeScene.action("setGiveSum", async (ctx) => {
@@ -42,7 +42,7 @@ exchangeScene.action("setGiveSum", async (ctx) => {
     `${phrases[lang].enterGiveAmount}(${ctx.session.exchangeProp.giveCurrency?.value}):`,
     Markup.inlineKeyboard([
       Markup.button.callback(`${phrases[lang].back}`, "back"),
-    ]),
+    ])
   );
   ctx.scene.state = { ...ctx.scene.state, sumType: "give" };
 });
@@ -54,7 +54,7 @@ exchangeScene.action("setGetSum", async (ctx) => {
     `${phrases[lang].enterGetAmount}(${ctx.session.exchangeProp.getCurrency?.value}):`,
     Markup.inlineKeyboard([
       Markup.button.callback(`${phrases[lang].back}`, "back"),
-    ]),
+    ])
   );
   ctx.scene.state = { ...ctx.scene.state, sumType: "get" };
 });
@@ -84,19 +84,14 @@ exchangeScene.on("text", async (ctx) => {
         ctx.session.exchangeProp.giveSum = sum / res.data.price;
         ctx.session.exchangeProp.exchange = res.data.price;
       }
-      if (
-        ctx.session.exchangeProp.type == "online" ||
-        (ctx.session.exchangeProp.type == "transaction" &&
-          ctx.session.exchangeProp.transactionType == "online")
-      ) {
-        if (ctx.session.exchangeProp.getCurrency?.type == "crypto")
-          await chain(ctx);
-        else if (ctx.session.exchangeProp.getCurrency?.type == "fiat")
-          await bank(ctx);
-        else ctx.scene.enter("card");
-      } else {
-        complete(ctx);
-      }
+
+      if (ctx.session.exchangeProp.getType.value == "cashless") {
+        await bank(ctx);
+      } else if (ctx.session.exchangeProp.getType.value == "crypto") {
+        await chain(ctx);
+      } else complete(ctx);
+    } else {
+      complete(ctx);
     }
   } else {
     ctx.reply(`${phrases[lang].correctAmountError}`);
