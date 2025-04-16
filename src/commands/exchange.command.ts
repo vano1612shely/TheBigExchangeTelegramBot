@@ -163,11 +163,16 @@ export class ExchangeCommand extends Command {
       ctx.session.exchangeProp.from = "bot";
       ctx.session.exchangeProp.phone = "none";
       const res = await telegramService.sendData(ctx.session.exchangeProp);
+      console.log(res);
       if (res) {
         ctx.deleteMessage(ctx.callbackQuery.message?.message_id);
         ctx.reply(
           `${phrases[lang].successfullySent}`,
           Markup.inlineKeyboard([
+            Markup.button.url(
+              `${phrases[lang].checkRequest}`,
+              `https://lukan.exchange/${lang === "ua" ? "uk" : lang}/${res}`
+            ),
             Markup.button.callback(`${phrases[lang].menu}`, "back_to_menu"),
           ])
         );

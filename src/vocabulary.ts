@@ -1,5 +1,6 @@
 export const phrases = {
   en: {
+    checkRequest: "View request",
     welcome: "Welcome",
     selectAction: "Select an action",
     chooseLanguage: "Choose your language",
@@ -61,6 +62,7 @@ export const phrases = {
     moreInfo: "More info",
   },
   ua: {
+    checkRequest: "Переглянути заявку",
     welcome: "Ласкаво просимо",
     selectAction: "Виберіть дію",
     chooseLanguage: "Виберіть свою мову",
@@ -121,6 +123,7 @@ export const phrases = {
     moreInfo: "Більше інформації",
   },
   ru: {
+    checkRequest: "Просмотреть заявку",
     welcome: "Добро пожаловать",
     selectAction: "Выберите действие",
     chooseLanguage: "Выберите ваш язык",
